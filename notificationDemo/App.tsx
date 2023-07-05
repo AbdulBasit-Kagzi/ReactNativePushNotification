@@ -1,4 +1,11 @@
-import {Alert, StyleSheet, Text, View} from 'react-native';
+import {
+  Alert,
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  Platform,
+} from 'react-native';
 import React, {useEffect} from 'react';
 import messaging from '@react-native-firebase/messaging';
 export default function App() {
@@ -17,9 +24,16 @@ export default function App() {
 
     return unsubscribe;
   }, []);
+
+  const screenWidth = Dimensions.get('window').width;
+  const screenHeight = Dimensions.get('window').height;
+  const platform = Platform.OS;
   return (
     <View>
       <Text>App</Text>
+      <Text>{screenWidth}</Text>
+      <Text>{screenHeight}</Text>
+      <Text>{platform}</Text>
     </View>
   );
 }
