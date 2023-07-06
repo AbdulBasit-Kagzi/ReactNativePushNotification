@@ -1,14 +1,19 @@
-import {
-  Alert,
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-  Platform,
-} from 'react-native';
+import {Alert} from 'react-native';
 import React, {useEffect} from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import messaging from '@react-native-firebase/messaging';
+import Header from './sections/Header';
+import SignInPage from './pages/SignInPage';
+import CreateProfilePage from './pages/CreateProfilePage';
+import ForgotPassword from './pages/ForgotPassword';
+import BuisnessPage from './pages/BuisnessPage';
 export default function App() {
+  const Stack = createNativeStackNavigator();
+
+  const defaultNavigationOptions = {
+    header: () => <Header />, // Use your custom header component
+  };
   useEffect(() => {
     getToken();
   }, []);
@@ -25,17 +30,16 @@ export default function App() {
     return unsubscribe;
   }, []);
 
-  const screenWidth = Dimensions.get('window').width;
-  const screenHeight = Dimensions.get('window').height;
-  const platform = Platform.OS;
+  // const screenWidth = Dimensions.get('window').width;
+  // const screenHeight = Dimensions.get('window').height;
+  // const platform = Platform.OS;
   return (
-    <View>
-      <Text>App</Text>
-      <Text>{screenWidth}</Text>
-      <Text>{screenHeight}</Text>
-      <Text>{platform}</Text>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={defaultNavigationOptions}>
+        <Stack.Screen name="Signin" component={SignInPage} />
+        <Stack.Screen name="Createprofile" component={CreateProfilePage} />
+        <Stack.Screen name="Forgotpassword" component={BuisnessPage} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({});
